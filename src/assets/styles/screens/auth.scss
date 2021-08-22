@@ -1,0 +1,19 @@
+body {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    background-color: $primary;
+}
+
+.form-signin {
+    min-width       : 400px;
+    min-height      : 500px;
+    padding         : 30px;
+    text-align      : center;
+    background-color: $light-grey;
+    border-radius   : 10px;
+}
+
+.auth-copy{
+    bottom: 0;
+}
