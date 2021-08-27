@@ -1,0 +1,24 @@
+.notes-navbar {
+    background-color: darken($color: $primary, $amount: 20);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    p {
+        margin: 0px !important;
+    }
+}
+
+.note-container {
+}
+
+.note-container .form {
+    color: #fff !important;
+    text-align: left;
+}
+.note-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 7px;
+}
