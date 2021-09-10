@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { login, startGoogleLogin } from '../../actions/Auth';
+import { startGoogleLogin } from '../../actions/Auth';
 import { useForm } from '../../hooks/useForm'
 
 export const LoginScreen = () => {
