@@ -1,6 +1,6 @@
 import { firebase, googleAuthProvider } from '../firebase/config'
 import { types } from '../types/Types'
-import { setError, setSuccess } from './Ui';
+import { setError, setSuccess, startLoading, stopLoading } from './Ui';
 
 
 export const startGoogleLogin = () => {
@@ -18,18 +18,23 @@ export const startGoogleLogin = () => {
     }
 }
 
-export const startSimpleLogin = () => {
+export const startSimpleLogin = ({ email, password }) => {
     return (dispatch) => {
-        firebase.auth().signInWithPopup(googleAuthProvider)
-            .then(({ user }) => {
+
+        dispatch(startLoading());
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((user) => {
                 dispatch(setSuccess('Login successfull'));
 
                 dispatch(startLogin(user.uid, user.displayName));
 
             })
             .catch(error => {
-                dispatch(setError('Error an ocurred in google login'));
+                dispatch(setError('Error an ocurred in login'));
             });
+
+        dispatch(stopLoading());
     }
 }
 
