@@ -9,7 +9,7 @@ export const startGoogleLogin = () => {
             .then(({ user }) => {
                 dispatch(setSuccess('Login successfull'));
 
-                dispatch(startLogin(user.uid, user.displayName));
+                dispatch(login(user.uid, user.displayName));
 
             })
             .catch(error => {
@@ -27,7 +27,7 @@ export const startSimpleLogin = ({ email, password }) => {
             .then((user) => {
                 dispatch(setSuccess('Login successfull'));
 
-                dispatch(startLogin(user.uid, user.displayName));
+                dispatch(login(user.uid, user.displayName));
 
             })
             .catch(error => {
@@ -35,13 +35,6 @@ export const startSimpleLogin = ({ email, password }) => {
             });
 
         dispatch(stopLoading());
-    }
-}
-
-export const startLogin = (uid, displayName) => {
-    return {
-        type: types.AUTH_LOGIN,
-        payload: { uid, displayName }
     }
 }
 
@@ -55,10 +48,37 @@ export const startRegister = ({ name, email, password }) => {
 
                 dispatch(setSuccess('User register successfull'));
 
-                dispatch(startLogin(user.uid, user.displayName));
+                dispatch(login(user.uid, user.displayName));
 
             }).catch(error => {
                 dispatch(setError('Error an ocurred in user register'));
             });;
+    }
+}
+
+export const login = (uid, displayName) => {
+    return {
+        type: types.AUTH_LOGIN,
+        payload: { uid, displayName }
+    }
+}
+
+export const startLogout = () => {
+    return (dispatch) => {
+
+        firebase.auth().signOut()
+            .then(async (user) => {
+
+                dispatch(logout());
+
+            }).catch(error => {
+                dispatch(setError('Error an ocurred in user logout'));
+            });;
+    }
+}
+
+export const logout = () => {
+    return {
+        type: types.AUTH_LOGOUT
     }
 }

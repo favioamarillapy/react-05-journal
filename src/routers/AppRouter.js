@@ -10,7 +10,7 @@ import {
 import { JournalScreen } from '../screens/journal/JournalScreen';
 import { AuthRouter } from './AuthRouter';
 import { firebase } from '../firebase/config';
-import { startLogin } from '../actions/Auth';
+import { login } from '../actions/Auth';
 
 export const AppRouter = () => {
 
@@ -22,7 +22,7 @@ export const AppRouter = () => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user?.uid) {
-                dispatch(startLogin(user.uid, user.displayName));
+                dispatch(login(user.uid, user.displayName));
             }
 
             setLogged(user?.uid);
