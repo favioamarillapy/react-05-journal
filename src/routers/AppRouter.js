@@ -9,29 +9,39 @@ import { login } from '../actions/Auth';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
 
-
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
 
-    const [authenticated, setAutenthicated] = useState(false);
-    const [logged, setLogged] = useState(false);
+    const [checking, setChecking] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
+
+        firebase.auth().onAuthStateChanged(async (user) => {
+
             if (user?.uid) {
                 dispatch(login(user.uid, user.displayName));
+                setIsLoggedIn(true);
+                dispatch(startLoadingNotes(user.uid));
+
+            } else {
+                setIsLoggedIn(false);
             }
 
-            setAutenthicated(true);
-            setLogged(user?.uid);
+            setChecking(false);
 
         });
-    }, [dispatch, setAutenthicated, setLogged]);
+
+    }, [dispatch, setChecking, setIsLoggedIn])
 
 
-    if (!authenticated) {
-        return <h1> Loading... </h1>
+    if (checking) {
+        return (
+            <h1>Wait...</h1>
+        )
     }
 
 
@@ -39,22 +49,23 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Switch>
-
                     <PublicRoute
                         path="/auth"
                         component={AuthRouter}
-                        isAuthenticated={logged} />
+                        isAuthenticated={isLoggedIn}
+                    />
 
                     <PrivateRoute
                         exact
-                        isAuthenticated={logged}
+                        isAuthenticated={isLoggedIn}
                         path="/"
-                        component={JournalScreen} />
+                        component={JournalScreen}
+                    />
 
                     <Redirect to="/auth/login" />
 
-                </Switch>
 
+                </Switch>
             </div>
         </Router>
     )
