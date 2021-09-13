@@ -1,20 +1,37 @@
+import moment from 'moment'
 import React from 'react'
 
-export const Entry = ({ id }) => {
+export const Entry = ({ id, title, body, date, url }) => {
+
+    const day = moment(date).format('dddd');
+    const dateFormat = moment(date).format('Do');
+
     return (
         <div className="entry-content mb-2">
 
-            <div className="entry-img"
-                style={{ backgroundSize: 'cover', backgroundImage: 'url(https://img.freepik.com/free-vector/colorful-palm-silhouettes-background_23-2148541792.jpg?size=626&ext=jpg&ga=GA1.2.2045755189.1629763200)' }}
-            >
-            </div>
+            {
+                (url) ?
+                    (
+                        <div className="entry-img"
+                            style={{ backgroundSize: 'cover', backgroundImage: `url(${url})` }}   >
+                        </div>
+                    )
+                    :
+                    (<div className="entry-img"
+                        style={{ backgroundSize: 'cover', backgroundImage: `url(https://via.placeholder.com/150)` }}   >
+                    </div>
+
+                    )
+            }
+
+
             <div className="entry-text">
-                <strong>Title</strong>
-                <p className="description text-muted">Description of the entry asdasd</p>
+                <strong>{title}</strong>
+                <p className="description text-muted">{body}</p>
             </div>
             <div className="entry-date">
-                <strong className="day">Monday</strong>
-                25
+                <strong className="day"> {day}</strong>
+                {dateFormat}
             </div>
         </div>
     )

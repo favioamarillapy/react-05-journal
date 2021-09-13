@@ -8,6 +8,7 @@ import { firebase } from '../firebase/config';
 import { login } from '../actions/Auth';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { startNoteLoad } from '../actions/Note';
 
 export const AppRouter = () => {
 
@@ -25,6 +26,8 @@ export const AppRouter = () => {
             if (user?.uid) {
                 dispatch(login(user.uid, user.displayName));
                 setIsLoggedIn(true);
+
+                dispatch(startNoteLoad());
 
             } else {
                 setIsLoggedIn(false);
