@@ -1,11 +1,12 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { startLogout } from '../../actions/Auth';
 import { JournalEntries } from './JournalEntries'
 
 export const Sidebar = () => {
 
     const dispatch = useDispatch();
+    const { displayName } = useSelector(state => state.auth);
 
     const handleLogout = (e) => {
 
@@ -18,7 +19,7 @@ export const Sidebar = () => {
 
             <div className="profile mt-3">
                 <h3>
-                    <i className="far fa-moon"></i>  Favio Amarilla
+                    {displayName}
                 </h3>
 
                 <button type="button" className="btn text-white" onClick={handleLogout} >Logout</button>
