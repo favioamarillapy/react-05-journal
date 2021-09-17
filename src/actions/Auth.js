@@ -1,6 +1,7 @@
 import { firebase, googleAuthProvider } from '../firebase/config'
 import { types } from '../types/Types'
-import { setError, setSuccess, startLoading, stopLoading } from './Ui';
+import { clearNotes } from './Note';
+import { setError, setSuccess, startLoading, stopLoading, uiRemove } from './Ui';
 
 
 export const startGoogleLogin = () => {
@@ -10,6 +11,10 @@ export const startGoogleLogin = () => {
                 dispatch(setSuccess('Login successfull'));
 
                 dispatch(login(user.uid, user.displayName));
+
+                setTimeout(() => {
+                    dispatch(uiRemove());
+                }, 1500);
 
             })
             .catch(error => {
@@ -28,6 +33,10 @@ export const startSimpleLogin = ({ email, password }) => {
                 dispatch(setSuccess('Login successfull'));
 
                 dispatch(login(user.uid, user.displayName));
+
+                setTimeout(() => {
+                    dispatch(uiRemove());
+                }, 1500);
 
             })
             .catch(error => {
@@ -70,6 +79,7 @@ export const startLogout = () => {
             .then(async (user) => {
 
                 dispatch(logout());
+                dispatch(clearNotes());
 
             }).catch(error => {
                 dispatch(setError('Error an ocurred in user logout'));

@@ -64,6 +64,7 @@ export const NotesScreen = () => {
                             </div>
                         )
                     }
+                    
                     <div className="form-group  col-md-6">
                         <button type="button" className="btn btn-danger" onClick={handleDelete}> <i className="fas fa-trash"> </i> Delete</button>
                     </div>

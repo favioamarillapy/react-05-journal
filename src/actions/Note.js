@@ -69,7 +69,7 @@ export const startSaveNote = (note) => {
 
         dispatch(startNoteData(types.NOTE_ACTIVE, { ...note }));
 
-        dispatch(startNoteLoad());
+        dispatch(addNote(note.id, note));
 
         dispatch(setSuccess('Note updated successfull'));
 
@@ -78,6 +78,12 @@ export const startSaveNote = (note) => {
         }, 2000);
     }
 }
+
+
+export const addNote = (id, note) => ({
+    type: types.NOTE_ADD,
+    payload: { id, ...note }
+});
 
 export const startImageUpload = (file) => {
     return async (dispatch, state) => {
@@ -118,6 +124,12 @@ export const deleteNote = (id) => ({
     type: types.NOTE_DELETE,
     payload: id
 });
+
+export const clearNotes = (id) => ({
+    type: types.NOTE_CLEAN,
+    payload: {}
+});
+
 
 
 export const startNoteData = (type, payload) => ({
