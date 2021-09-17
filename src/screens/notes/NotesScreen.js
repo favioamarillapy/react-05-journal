@@ -50,10 +50,10 @@ export const NotesScreen = () => {
 
                     {
                         (url) && (
-                            <div className="form-group  col-md-12">
+                            <div className="form-group mt-5  col-md-12">
                                 <div className="row">
                                     <div className="col-md-2 mb-3">
-                                        <img className="note-img" src="https://img.freepik.com/free-vector/colorful-palm-silhouettes-background_23-2148541792.jpg?size=626&ext=jpg&ga=GA1.2.2045755189.1629763200" alt="profile" />
+                                        <img className="note-img" src={active.url} alt="profile" />
                                     </div>
                                 </div>
                             </div>
