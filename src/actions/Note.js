@@ -1,5 +1,6 @@
 import { db } from "../firebase/config";
 import { types } from "../types/Types";
+import { setSuccess, uiRemove } from "./Ui";
 
 export const startNoteAdd = () => {
     return async (dispatch, state) => {
@@ -23,7 +24,6 @@ export const startNoteAdd = () => {
     }
 }
 
-
 export const startNoteLoad = () => {
     return async (dispatch, state) => {
 
@@ -41,6 +41,41 @@ export const startNoteLoad = () => {
 
 
         dispatch(startNoteData(types.NOTE_LOAD, notes));
+    }
+}
+
+export const startActiveNote = (note) => {
+    return async (dispatch) => {
+
+        dispatch(startNoteData(types.NOTE_ACTIVE, { ...note }));
+    }
+}
+
+export const startSaveNote = (note) => {
+    return async (dispatch, state) => {
+
+        const { uid } = state().auth;
+
+        const persist = { ...note };
+
+        delete persist.id;
+        if (!persist.url) {
+            delete persist.url;
+        }
+
+
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(persist);
+
+
+        dispatch(startNoteData(types.NOTE_ACTIVE, { ...note }));
+
+        dispatch(startNoteLoad());
+
+        dispatch(setSuccess('Note updated successfull'));
+
+        setTimeout(() => {
+            dispatch(uiRemove());
+        }, 2000);
     }
 }
 

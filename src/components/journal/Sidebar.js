@@ -8,7 +8,7 @@ export const Sidebar = () => {
 
     const dispatch = useDispatch();
     const { displayName } = useSelector(state => state.auth);
-
+    const { error, message } = useSelector(state => state.ui);
 
     const handleLogout = (e) => {
         dispatch(startLogout());
@@ -34,6 +34,22 @@ export const Sidebar = () => {
                 <p>New Entry</p>
             </div>
 
+            {
+                error && message &&
+                (
+                    <div className="alert alert-danger" role="alert">
+                        {message}
+                    </div>
+                )
+            }
+            {
+                !error && message &&
+                (
+                    <div className="alert alert-success" role="alert">
+                        {message}
+                    </div>
+                )
+            }
 
             <JournalEntries />
 

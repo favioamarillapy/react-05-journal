@@ -1,13 +1,24 @@
 import moment from 'moment'
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { startActiveNote } from '../../actions/Note';
 
 export const Entry = ({ id, title, body, date, url }) => {
 
     const day = moment(date).format('dddd');
     const dateFormat = moment(date).format('Do');
 
+    const dispatch = useDispatch();
+
+
+
+    const handleActive = () => {
+
+        dispatch(startActiveNote({ id, title, body, date, url }))
+    }
+
     return (
-        <div className="entry-content mb-2">
+        <div className="entry-content mb-2" onClick={handleActive}>
 
             {
                 (url) ?
