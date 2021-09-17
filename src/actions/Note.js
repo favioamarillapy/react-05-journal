@@ -89,12 +89,10 @@ export const startImageUpload = (file) => {
         formData.append('upload_preset', 'react-05-journal');
         formData.append('file', file);
 
-        console.log('subiendo');
         const response = await fetch(apiUrl, {
             method: 'POST',
             body: formData
         });
-        console.log('listo');
 
         if (response.ok) {
             const resp = await response.json();
@@ -102,11 +100,24 @@ export const startImageUpload = (file) => {
 
             dispatch(startSaveNote(active))
         }
-
-
-
     }
 }
+
+export const startDeleteNote = (id) => {
+    return async (dispatch, state) => {
+
+        const { uid } = state().auth
+
+        await db.doc(`${uid}/journal/notes/${id}`).delete();
+
+        dispatch(deleteNote(id));
+    }
+}
+
+export const deleteNote = (id) => ({
+    type: types.NOTE_DELETE,
+    payload: id
+});
 
 
 export const startNoteData = (type, payload) => ({
