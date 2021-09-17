@@ -79,6 +79,35 @@ export const startSaveNote = (note) => {
     }
 }
 
+export const startImageUpload = (file) => {
+    return async (dispatch, state) => {
+
+        const { active } = state().note;
+        const apiUrl = `https://api.cloudinary.com/v1_1/dmeswpvll/image/upload`;
+
+        const formData = new FormData();
+        formData.append('upload_preset', 'react-05-journal');
+        formData.append('file', file);
+
+        console.log('subiendo');
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            body: formData
+        });
+        console.log('listo');
+
+        if (response.ok) {
+            const resp = await response.json();
+            active.url = resp.secure_url;
+
+            dispatch(startSaveNote(active))
+        }
+
+
+
+    }
+}
+
 
 export const startNoteData = (type, payload) => ({
     type,
