@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import validator from 'validator';
 import { startRegister } from '../../actions/Auth';
 import { setError } from '../../actions/Ui';
@@ -51,7 +52,7 @@ export const RegisterScreen = () => {
 
     return (
         <div className="auth-content">
-            <form className="form-signin" onSubmit={register}>
+            <form className="form-signin animate__animated animate__fadeIn animate_faster" onSubmit={register}>
                 <h1 className="h3 mb-5 font-weight-normal">Please register</h1>
 
                 {
@@ -88,7 +89,12 @@ export const RegisterScreen = () => {
                 </div>
 
                 <button className="btn btn-lg btn-primary btn-block mt-5" type="submit">Register</button>
-                <p className="mt-4 mb-3 text-info pointer link">Login</p>
+                <Link
+                    to="/auth/login"
+                    className="mt-4 mb-3 text-info pointer link"
+                >
+                    Login?
+                </Link>
             </form>
         </div>
     )

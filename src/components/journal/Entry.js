@@ -18,7 +18,7 @@ export const Entry = ({ id, title, body, date, url }) => {
     }
 
     return (
-        <div className="entry-content mb-2" onClick={handleActive}>
+        <div className="entry-content mb-2 animate__animated animate__fadeIn animate_faster" onClick={handleActive}>
 
             {
                 (url) ?

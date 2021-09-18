@@ -6,6 +6,7 @@ import { startGoogleLogin, startSimpleLogin } from '../../actions/Auth';
 import { useForm } from '../../hooks/useForm';
 import validator from 'validator';
 import { setError } from '../../actions/Ui';
+import { Link } from 'react-router-dom';
 
 export const LoginScreen = () => {
 
@@ -54,7 +55,7 @@ export const LoginScreen = () => {
 
     return (
         <div className="auth-content">
-            <form className="form-signin" onSubmit={handleLogin}>
+            <form className="form-signin animate__animated animate__fadeIn animate_faster" onSubmit={handleLogin}>
                 <h1 className="h3 mt-5 mb-5 font-weight-normal">Please sign in</h1>
 
                 {
@@ -101,7 +102,13 @@ export const LoginScreen = () => {
                     onClick={handleGoogleLogin}>
                     <i className="fab fa-google"></i> Sign in with Google
                 </button>
-                <p className="mt-4 mb-3 text-info pointer link">Create new account</p>
+                
+                <Link
+                    to="/auth/register"
+                    className="mt-4 mb-3 text-info pointer link"
+                >
+                    Create new account
+                </Link>
             </form>
         </div>
     )
